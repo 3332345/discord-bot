@@ -81,7 +81,7 @@ app.get('/api/user', (req, res) => {
 // API: Save Settings & Sync with Cloud Network
 app.post('/api/save-settings', (req, res) => {
     if (!req.isAuthenticated()) {
-        return.status(401).json({ success: false, error: 'Unauthorized' });
+        return res.status(401).json({ success: false, error: 'Unauthorized' });
     }
 
     const { settings, isPublic } = req.body;
@@ -105,7 +105,7 @@ app.post('/api/save-settings', (req, res) => {
 // API: Fetch Public Cloud Configurations
 app.get('/api/cloud-configs', (req, res) => {
     if (!req.isAuthenticated()) {
-        return.status(401).json({ error: 'Unauthorized' });
+        return res.status(401).json({ error: 'Unauthorized' });
     }
 
     const publicConfigs = [];
@@ -121,7 +121,7 @@ app.get('/api/cloud-configs', (req, res) => {
 // API: Securely Save Raw Script Source Code
 app.post('/api/save-script-source', (req, res) => {
     if (!req.isAuthenticated()) {
-        return.status(401).json({ success: false, error: 'Unauthorized' });
+        return res.status(401).json({ success: false, error: 'Unauthorized' });
     }
 
     const { scriptSource } = req.body;
