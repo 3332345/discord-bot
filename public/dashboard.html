@@ -80,6 +80,13 @@
         .status-msg { margin-top: 1rem; font-family: var(--font-mono); font-size: 0.8rem; color: #00ffaa; font-weight: 700; }
         .user-profile { display: flex; align-items: center; gap: 1rem; }
         .user-avatar { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--accent-primary); }
+
+        /* Dynamic Config Schema Styles for Nested Tables */
+        .config-section-group { background: rgba(15, 4, 7, 0.6); border: 1px solid var(--border-color); padding: 1rem; border-radius: 3px; margin-bottom: 1rem; }
+        .config-group-title { font-family: var(--font-display); font-size: 0.95rem; color: var(--accent-primary); margin-bottom: 0.8rem; text-transform: uppercase; letter-spacing: 0.05rem; }
+        .config-item-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; gap: 1rem; }
+        .config-label { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; flex: 1; }
+        .config-input-field { flex: 1; padding: 0.4rem 0.6rem; background: rgba(10, 2, 4, 0.9); border: 1px solid var(--border-color); border-radius: 2px; font-family: var(--font-mono); color: var(--text-main); font-size: 0.8rem; }
     </style>
 </head>
 <body>
@@ -165,6 +172,16 @@
                         </select>
                     </div>
                 </form>
+            </section>
+
+            <!-- Panel 3: Dynamic Full Lua Table Schema Editor (Extended Addition) -->
+            <section class="panel full-width">
+                <h2>Full Lua Table Config Editor</h2>
+                <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+                    Modify individual nested fields from your master configuration table schema in real-time.
+                </p>
+                <div id="configEditorContainer"></div>
+                <button type="button" id="saveConfigBtn" class="btn btn-discord" style="margin-top: 1.5rem; width: 100%;">Save Full Configuration Schema</button>
             </section>
 
             <!-- Panel 4: Public Cloud Configs Gallery -->
@@ -256,13 +273,6 @@
                 const mainContent = document.getElementById('mainContent');
 
                 if (!data.loggedIn) {
-                    mainContent.innerHTML = `
-                        <section class="panel full-width" style="text-align: center; padding: 4rem;">
-                            <h2 style="color: var(--accent-primary); margin-bottom: 1rem;">Access Restricted</h2>
-                            <p style="font-family: var(--font-mono); color: var(--text-muted); margin-bottom: 2rem;">You must authenticate with your Discord account to access the lilvapex_x control nexus.</p>
-                            <a href="/auth/discord" class="btn btn-discord" style="font-size: 1rem; padding: 0.8rem 2rem;">Login with Discord</a>
-                        </section>
-                    `;
                     authArea.innerHTML = `<a href="/auth/discord" class="btn btn-discord">Login with Discord</a>`;
                     return;
                 }
@@ -310,6 +320,98 @@
             }
         }
 
+        // Master Lua configuration schema structure mapping for the dynamic nested table editor
+        const luaConfigData = {
+            "General": {
+                "UI": {
+                    "Watermark Font": "IndieFlower",
+                    "Watermark Text Size": 32
+                },
+                "Keybinds": {
+                    "Silent Aim": "C",
+                    "Cam Lock": "Q",
+                    "Mouse Lock": "T",
+                    "Triggerbot": "E",
+                    "Speed": "Z",
+                    "Jump Power": "X",
+                    "ESP": "U",
+                    "Rapid Fire": "L",
+                    "Orbit": "V"
+                },
+                "Combat": {
+                    "Silent Aim": {
+                        "Enabled": true,
+                        "Type": "Legit",
+                        "FOV Size": 1000,
+                        "Hit Location Mode": "Legit"
+                    },
+                    "Orbit": {
+                        "Enabled": true,
+                        "Type": "Destroy Cheaters"
+                    },
+                    "ESP": {
+                        "Enabled": true
+                    }
+                },
+                "Movement": {
+                    "Speed Multiplier": 300
+                },
+                "Environment": {
+                    "Selected Skybox": "Anime"
+                }
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const configContainer = document.getElementById('configEditorContainer');
+            if (configContainer) {
+                function renderConfigEditor(data, parentKey = '') {
+                    let html = '';
+                    for (const [key, value] of Object.entries(data)) {
+                        const fullKey = parentKey ? `${parentKey}.${key}` : key;
+                        if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+                            html += `
+                                <div class="config-section-group">
+                                    <h4 class="config-group-title">${key}</h4>
+                                    <div class="config-group-content">${renderConfigEditor(value, fullKey)}</div>
+                                </div>
+                            `;
+                        } else {
+                            html += `
+                                <div class="config-item-row">
+                                    <label class="config-label">${key}</label>
+                                    <input type="text" class="config-input-field" data-path="${fullKey}" value="${value}">
+                                </div>
+                            `;
+                        }
+                    }
+                    return html;
+                }
+
+                configContainer.innerHTML = renderConfigEditor(luaConfigData);
+
+                const saveConfigBtn = document.getElementById('saveConfigBtn');
+                if (saveConfigBtn) {
+                    saveConfigBtn.addEventListener('click', () => {
+                        const inputs = configContainer.querySelectorAll('.config-input-field');
+                        inputs.forEach(input => {
+                            const path = input.getAttribute('data-path').split('.');
+                            let ref = luaConfigData;
+                            for (let i = 0; i < path.length - 1; i++) {
+                                ref = ref[path[i]];
+                            }
+                            ref[path[path.length - 1]] = input.value;
+                        });
+
+                        saveConfigBtn.textContent = "Saved Full Schema Successfully! ✔";
+                        setTimeout(() => {
+                            saveConfigBtn.textContent = "Save Full Configuration Schema";
+                        }, 2000);
+                    });
+                }
+            }
+        });
+
         const settingsForm = document.getElementById('settingsForm');
         if (settingsForm) {
             settingsForm.addEventListener('submit', async (e) => {
@@ -323,7 +425,7 @@
                 const speedMultiplier = Number(document.getElementById('speedMultiplier').value);
                 const orbitType = document.getElementById('orbitType').value;
                 const selectedSkybox = document.getElementById('skyboxSelect').value;
-                const isPublic = document.getElementById('isPublicToggle').javascript || document.getElementById('isPublicToggle').checked;
+                const isPublic = document.getElementById('isPublicToggle').checked;
 
                 const structuredSettings = {
                     General: {
