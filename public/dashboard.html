@@ -1,131 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #0b0f19;
-            --card-bg: #111827;
-            --border-color: #1f2937;
-            --primary: #ec4899;
-            --primary-hover: #db2777;
-            --text-main: #f9fafb;
-            --text-muted: #9ca3af;
-        }
+<div id="buyTab" class="panel full-width" style="display:none;">
+<h2>Choose Your Payment Method</h2>
+<p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); margin-bottom: 2rem;">
+                Select an option below to purchase access. Verified accounts automatically receive the buyer role on Discord.
+                Select an option below to purchase access. PayPal and Discord Gamepass are automated and automatically give you buyer role.
+</p>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+<div class="config-card" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between;">
+<div>
+<h4>PayPal Secure Checkout</h4>
+                        <p style="margin-top: 0.5rem; margin-bottom: 1.5rem;">Automated instant verification via PayPal.</p>
+                        <p style="margin-top: 0.5rem; margin-bottom: 1.5rem;">Automated instant verification via PayPal. Automatically gives you buyer role.</p>
+</div>
+<a href="https://paypal.me/awsomepey" target="_blank" class="btn btn-discord" style="width: 100%;">Pay with PayPal</a>
+</div>
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-        }
+<div class="config-card" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between;">
+<div>
+<h4>Roblox Gamepass</h4>
+                        <p style="margin-top: 0.5rem; margin-bottom: 1.5rem;">Purchase directly through the Roblox gamepass link.</p>
+                        <p style="margin-top: 0.5rem; margin-bottom: 1.5rem;">Purchase directly through the Roblox gamepass link. Automatically gives you buyer role.</p>
+</div>
+<a href="https://www.roblox.com/game-pass/1998111592/the-greatest" target="_blank" class="btn btn-discord" style="width: 100%;">Pay with Gamepass</a>
+</div>
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .dashboard-container {
-            width: 450px;
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--text-main);
-        }
-
-        h1 span {
-            color: var(--primary);
-        }
-
-        p {
-            color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 25px;
-        }
-
-        .user-info {
-            background-color: var(--bg-color);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .user-info p {
-            margin-bottom: 8px;
-            font-size: 13px;
-        }
-
-        .user-info p:last-child {
-            margin-bottom: 0;
-        }
-
-        .logout-btn {
-            display: inline-block;
-            background-color: var(--primary);
-            color: white;
-            text-decoration: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            width: 100%;
-            transition: background-color 0.2s;
-        }
-
-        .logout-btn:hover {
-            background-color: var(--primary-hover);
-        }
-    </style>
-</head>
-<body>
-
-    <div class="dashboard-container">
-        <h1>lilvape<span>.lol</span></h1>
-        <p>Welcome to your dashboard</p>
-
-        <div class="user-info" id="user-info">
-            <p><strong>Username:</strong> <span id="username">Loading...</span></p>
-            <p><strong>Discord ID:</strong> <span id="discord-id">Loading...</span></p>
-        </div>
-
-        <a href="/logout" class="logout-btn">Log Out</a>
-    </div>
-
-    <script>
-        async function fetchUserData() {
-            try {
-                const response = await fetch('/api/user');
-                if (response.ok) {
-                    const data = await response.json();
-                    document.getElementById('username').textContent = data.username || 'Unknown';
-                    document.getElementById('discord-id').textContent = data.discordId || 'Unknown';
-                } else {
-                    window.location.href = '/';
-                }
-            } catch (error) {
-                console.error('Error fetching user data:', error);
-            }
-        }
-
-        fetchUserData();
-    </script>
-</body>
-</html>
+<div class="config-card" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; grid-column: 1 / -1;">
+<div>
+<h4>Zelle Transfer</h4>
+                        <p style="margin-top: 0.5rem; margin-bottom: 1rem;">Send funds using our Zelle handle, then open a ticket in our Discord server, roblox gamepass and paypal automatically give you buyer role in discord</p>
+                        <p style="margin-top: 0.5rem; margin-bottom: 1rem;">zelle:make a ticket in discord</p>
+<div style="background: rgba(15, 4, 7, 0.95); padding: 1rem; border: 1px solid var(--border-color); border-radius: 2px; font-family: var(--font-mono); color: var(--accent-primary); font-weight: bold; font-size: 1rem; text-align: center; letter-spacing: 0.1rem;">
+Zelle Tag: @9293048307
+</div>
