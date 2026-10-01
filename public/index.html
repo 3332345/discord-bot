@@ -48,8 +48,8 @@
         .btn-outline { background: transparent; color: var(--text-muted); border: 1px solid var(--border-color); }
         .btn-outline:hover { border-color: var(--accent-primary); color: var(--text-main); }
 
-        main { max-width: 1200px; margin: 3rem auto; padding: 0 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-        @media(max-width: 900px) { main { grid-template-columns: 1fr; } header { padding: 1.5rem 2rem; } }
+        main { max-width: 1200px; margin: 3rem auto; padding: 0 2rem; display: grid; grid-template-columns: 1fr; gap: 2rem; }
+        @media(max-width: 900px) { header { padding: 1.5rem 2rem; } }
 
         .panel {
             background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 4px; padding: 2rem;
@@ -63,14 +63,10 @@
         .form-group { margin-bottom: 1.2rem; }
         label { display: block; font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.4rem; letter-spacing: 0.05rem; }
         input[type="text"], input[type="number"], select, textarea {
-            width: 100%; padding: 0.75rem 1rem; background: rgba(20, 8, 12, 0.8); border: 1px solid var(--border-color);
+            width: 100%; padding: 0.75rem 1.0rem; background: rgba(20, 8, 12, 0.8); border: 1px solid var(--border-color);
             border-radius: 2px; font-family: var(--font-mono); color: var(--text-main); font-size: 0.85rem;
         }
-        textarea { resize: vertical; min-height: 120px; }
         input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent-primary); box-shadow: 0 0 8px var(--accent-glow); }
-
-        .checkbox-row { display: flex; align-items: center; gap: 0.75rem; margin-top: 0.8rem; font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); cursor: pointer; }
-        .checkbox-row input { accent-color: var(--accent-primary); width: 1.1rem; height: 1.1rem; }
 
         .configs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; margin-top: 1rem; }
         .config-card { background: rgba(20, 8, 12, 0.9); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 3px; width: 100%; }
@@ -87,6 +83,10 @@
         .config-item-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; gap: 1rem; }
         .config-label { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; flex: 1; }
         .config-input-field { flex: 1; padding: 0.4rem 0.6rem; background: rgba(15, 4, 7, 0.9); border: 1px solid var(--border-color); border-radius: 2px; font-family: var(--font-mono); color: var(--text-main); font-size: 0.8rem; }
+        .color-picker-wrapper { display: flex; align-items: center; gap: 0.5rem; flex: 1; }
+        .color-picker-wrapper input[type="color"] { -webkit-appearance: none; border: none; width: 32px; height: 32px; border-radius: 2px; cursor: pointer; background: none; }
+        .color-picker-wrapper input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+        .color-picker-wrapper input[type="color"]::-webkit-color-swatch { border: 1px solid var(--border-color); border-radius: 2px; }
     </style>
 </head>
 <body>
@@ -96,7 +96,6 @@
         <div class="nav-links">
             <a onclick="switchTab('configsTab')" id="navConfigs" class="active">Configs</a>
             <a onclick="switchTab('buyTab')" id="navBuy">Buy</a>
-            <a onclick="switchTab('internalTab')" id="navInternal">Internal</a>
         </div>
         <div class="user-auth-area" id="authArea">
             <a href="/auth/discord" class="btn btn-discord">Login with Discord</a>
@@ -105,76 +104,8 @@
 
     <main id="mainContent">
         <!-- TAB 1: CONFIGS PANEL -->
-        <div id="configsTab" class="full-width" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-            <!-- Panel 1: Live Script Table Controls -->
-            <section class="panel">
-                <h2>Silent Aim & Combat Configuration</h2>
-                <form id="settingsForm">
-                    <div class="form-group">
-                        <label for="silentEnabled">Silent Aim Enabled</label>
-                        <select id="silentEnabled">
-                            <option value="true">True</option>
-                            <option value="false">False</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="silentType">Silent Aim Type Mode</label>
-                        <select id="silentType">
-                            <option value="Legit">Legit</option>
-                            <option value="Blantan">Blantan</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="fovSize">FOV Circle Radius Size</label>
-                        <input type="number" id="fovSize" value="1000" min="50" max="5000">
-                    </div>
-                    <div class="form-group">
-                        <label for="hitLocationMode">Hit Location Mode</label>
-                        <select id="hitLocationMode">
-                            <option value="Legit">Legit</option>
-                            <option value="ClosestPoint">ClosestPoint</option>
-                            <option value="HumanoidRootPart">HumanoidRootPart</option>
-                        </select>
-                    </div>
-                    <div class="checkbox-row">
-                        <input type="checkbox" id="isPublicToggle">
-                        <label for="isPublicToggle" style="display:inline; margin:0; cursor:pointer;">Publish configuration table to Cloud Network</label>
-                    </div>
-                    <button type="submit" class="btn btn-discord" style="margin-top: 1.5rem; width: 100%;">Save & Sync Configuration Table</button>
-                    <div id="saveStatus" class="status-msg"></div>
-                </form>
-            </section>
-
-            <!-- Panel 2: Movement & Orbit Adjustments -->
-            <section class="panel">
-                <h2>Movement & Orbit Parameters</h2>
-                <form id="movementForm">
-                    <div class="form-group">
-                        <label for="speedMultiplier">Speed Multiplier</label>
-                        <input type="number" id="speedMultiplier" value="300" min="16" max="1000">
-                    </div>
-                    <div class="form-group">
-                        <label for="orbitType">Orbit Default Preset Mode</label>
-                        <select id="orbitType">
-                            <option value="Troll Legit Players">Troll Legit Players</option>
-                            <option value="Insane">Insane</option>
-                            <option value="Destroy Cheaters">Destroy Cheaters</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="skyboxSelect">Selected Skybox Theme</label>
-                        <select id="skyboxSelect">
-                            <option value="Anime">Anime</option>
-                            <option value="Space">Space</option>
-                            <option value="Dark">Dark</option>
-                            <option value="Retro">Retro</option>
-                            <option value="Midnight">Midnight</option>
-                        </select>
-                    </div>
-                </form>
-            </section>
-
-            <!-- Panel 3: Dynamic Full Lua Table Schema Editor -->
+        <div id="configsTab" class="full-width" style="display: grid; grid-template-columns: 1fr; gap: 2rem;">
+            <!-- Panel: Dynamic Full Lua Table Schema Editor -->
             <section class="panel full-width">
                 <h2>Full Lua Table Config Editor</h2>
                 <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem;">
@@ -184,7 +115,7 @@
                 <button type="button" id="saveConfigBtn" class="btn btn-discord" style="margin-top: 1.5rem; width: 100%;">Save Full Configuration Schema</button>
             </section>
 
-            <!-- Panel 4: Public Cloud Configs Gallery -->
+            <!-- Panel: Public Cloud Configs Directory -->
             <section class="panel full-width">
                 <h2>Cloud Configs Directory</h2>
                 <div id="cloudConfigsContainer">
@@ -228,19 +159,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- TAB 3: INTERNAL SCRIPT SOURCE MANAGER -->
-        <div id="internalTab" class="panel full-width" style="display:none;">
-            <h2>Secure Script Source Storage (No Loadstring Link Needed)</h2>
-            <form id="scriptSourceForm">
-                <div class="form-group">
-                    <label for="rawScriptInput">Paste your full raw Lua script code here to host it privately:</label>
-                    <textarea id="rawScriptInput" placeholder="-- Paste your script source code here..."></textarea>
-                </div>
-                <button type="submit" class="btn btn-discord">Save Script Source to Server</button>
-                <div id="scriptSaveStatus" class="status-msg"></div>
-            </form>
-        </div>
     </main>
 
     <script src="/socket.io/socket.io.js"></script>
@@ -250,7 +168,6 @@
         function switchTab(tabId) {
             document.getElementById('configsTab').style.display = 'none';
             document.getElementById('buyTab').style.display = 'none';
-            document.getElementById('internalTab').style.display = 'none';
 
             document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
 
@@ -260,9 +177,6 @@
             } else if (tabId === 'buyTab') {
                 document.getElementById('buyTab').style.display = 'block';
                 document.getElementById('navBuy').classList.add('active');
-            } else if (tabId === 'internalTab') {
-                document.getElementById('internalTab').style.display = 'block';
-                document.getElementById('navInternal').classList.add('active');
             }
         }
 
@@ -368,7 +282,7 @@
                         "Enabled": true,
                         "Active": true,
                         "Name ESP": true,
-                        "Font": 2,
+                        "Font": "2",
                         "Text Size": 16,
                         "Health Bar": false,
                         "Health Bar Mode": "static"
@@ -414,6 +328,13 @@
             }
         };
 
+        const availableFonts = ["IndieFlower", "Arial", "Roboto", "JetBrains Mono", "Tahoma", "Ubuntu", "Code", "System"];
+        const availableSkyboxes = [
+            "Piss", "Peach", "Saku", "Purple", "Retro", "Space", "Sea", "Night V2", 
+            "Dark", "Anime", "Beach", "Space V2", "Pink", "Rainbow", "Forest", 
+            "Night", "Lava", "Rainy", "Green", "Volcanic", "Minecraft", "Lucid", "Nebulous"
+        ];
+
         document.addEventListener('DOMContentLoaded', () => {
             const configContainer = document.getElementById('configEditorContainer');
             if (configContainer) {
@@ -429,10 +350,52 @@
                                 </div>
                             `;
                         } else {
+                            let inputHtml = '';
+                            const lowerKey = key.toLowerCase();
+
+                            // Font dropdown list check
+                            if (lowerKey.includes('font')) {
+                                inputHtml = `<select class="config-input-field" data-path="${fullKey}">`;
+                                availableFonts.forEach(font => {
+                                    inputHtml += `<option value="${font}" ${value == font ? 'selected' : ''}>${font}</option>`;
+                                });
+                                inputHtml += `</select>`;
+                            }
+                            // Skybox dropdown list check
+                            else if (lowerKey.includes('skybox') && !lowerKey.includes('rotating') && !lowerKey.includes('enabled')) {
+                                inputHtml = `<select class="config-input-field" data-path="${fullKey}">`;
+                                availableSkyboxes.forEach(sky => {
+                                    inputHtml += `<option value="${sky}" ${value == sky ? 'selected' : ''}>${sky}</option>`;
+                                });
+                                inputHtml += `</select>`;
+                            }
+                            // Color picker / HEX check
+                            else if (typeof value === 'string' && value.startsWith('#') && value.length === 7) {
+                                inputHtml = `
+                                    <div class="color-picker-wrapper">
+                                        <input type="color" value="${value}" oninput="this.nextElementSibling.value = this.value">
+                                        <input type="text" class="config-input-field" data-path="${fullKey}" value="${value}">
+                                    </div>
+                                `;
+                            }
+                            // Boolean values dropdown (True/False)
+                            else if (typeof value === 'boolean') {
+                                inputHtml = `
+                                    <select class="config-input-field" data-path="${fullKey}">
+                                        <option value="true" ${value === true ? 'selected' : ''}>True</option>
+                                        <option value="false" ${value === false ? 'selected' : ''}>False</option>
+                                    </select>
+                                `;
+                            }
+                            // Default text/number inputs
+                            else {
+                                inputHtml = `<input type="text" class="config-input-field" data-path="${fullKey}" value="${value}">`;
+                            }
+
                             html += `
                                 <div class="config-item-row">
                                     <label class="config-label">${key}</label>
-                                    <input type="text" class="config-input-field" data-path="${fullKey}" value="${value}">
+                                    ${inputHtml}
                                 </div>
                             `;
                         }
@@ -452,7 +415,12 @@
                             for (let i = 0; i < path.length - 1; i++) {
                                 ref = ref[path[i]];
                             }
-                            ref[path[path.length - 1]] = input.value;
+                            let val = input.value;
+                            if (val === 'true') val = true;
+                            else if (val === 'false') val = false;
+                            else if (!isNaN(val) && val.trim() !== '') val = Number(val);
+
+                            ref[path[path.length - 1]] = val;
                         });
 
                         saveConfigBtn.textContent = "Saved Successfully! ✔";
@@ -465,85 +433,6 @@
                 }
             }
         });
-
-        const settingsForm = document.getElementById('settingsForm');
-        if (settingsForm) {
-            settingsForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                
-                const silentEnabled = document.getElementById('silentEnabled').value === 'true';
-                const silentType = document.getElementById('silentType').value;
-                const fovSize = Number(document.getElementById('fovSize').value);
-                const hitLocationMode = document.getElementById('hitLocationMode').value;
-                
-                const speedMultiplier = Number(document.getElementById('speedMultiplier').value);
-                const orbitType = document.getElementById('orbitType').value;
-                const selectedSkybox = document.getElementById('skyboxSelect').value;
-                const isPublic = document.getElementById('isPublicToggle').checked;
-
-                const structuredSettings = {
-                    General: {
-                        Combat: {
-                            "Silent Aim": {
-                                Enabled: silentEnabled,
-                                Type: silentType,
-                                FOV: { Size: fovSize },
-                                "Hit Location": { Mode: hitLocationMode }
-                            },
-                            Orbit: { Type: orbitType },
-                            ESP: { Enabled: true }
-                        },
-                        Movement: { Speed: { Multiplier: speedMultiplier } },
-                        Environment: { "Selected Skybox": selectedSkybox }
-                    }
-                };
-
-                try {
-                    const res = await fetch('/api/save-settings', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ settings: structuredSettings, isPublic })
-                    });
-                    const result = await res.json();
-                    
-                    const statusDiv = document.getElementById('saveStatus');
-                    if (result.success) {
-                        statusDiv.textContent = "Configuration table saved & synced successfully!";
-                        fetchCloudConfigs();
-                    } else {
-                        statusDiv.textContent = "Save failed. Make sure you are logged in.";
-                    }
-                } catch (err) {
-                    document.getElementById('saveStatus').textContent = "Network synchronization error.";
-                }
-            });
-        }
-
-        const scriptSourceForm = document.getElementById('scriptSourceForm');
-        if (scriptSourceForm) {
-            scriptSourceForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const scriptSource = document.getElementById('rawScriptInput').value;
-
-                try {
-                    const res = await fetch('/api/save-script-source', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ scriptSource })
-                    });
-                    const result = await res.json();
-                    const statusDiv = document.getElementById('scriptSaveStatus');
-                    
-                    if (result.success) {
-                        statusDiv.textContent = "Script source securely stored on server!";
-                    } else {
-                        statusDiv.textContent = "Failed to save script source. Ensure you are logged in.";
-                    }
-                } catch (err) {
-                    document.getElementById('scriptSaveStatus').textContent = "Network error saving script source.";
-                }
-            });
-        }
 
         checkUserData();
     </script>
