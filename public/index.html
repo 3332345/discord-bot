@@ -41,6 +41,7 @@
         .btn {
             font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; text-transform: uppercase;
             padding: 0.6rem 1.2rem; border-radius: 2px; cursor: pointer; text-decoration: none; transition: all 0.3s;
+            display: inline-block; text-align: center;
         }
         .btn-discord { background-color: var(--accent-primary); color: #ffffff; border: 1px solid var(--accent-primary); }
         .btn-discord:hover { box-shadow: 0 0 15px var(--accent-glow); background-color: #a32243; }
@@ -62,6 +63,7 @@
         .hero-banner p { font-family: var(--font-mono); font-size: 1rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 2rem auto; line-height: 1.6; }
         
         .grid-2 { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+        @media(min-width: 768px) { .grid-2 { grid-template-columns: repeat(2, 1fr); } }
 
         h2, h3 { font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 1rem; letter-spacing: 0.05rem; text-transform: uppercase; color: var(--text-main); }
         h3 { font-size: 1rem; color: var(--accent-primary); border-bottom: 1px solid var(--border-color); padding-bottom: 0.3rem; margin-top: 1rem; }
@@ -97,6 +99,7 @@
         <div class="logo">lilvapex_x <span>// lilvape.lol</span></div>
         <div class="nav-links">
             <a onclick="switchTab('homeTab')" id="navHome" class="active">Home</a>
+            <a onclick="switchTab('buyTab')" id="navBuy">Buy</a>
             <a onclick="switchTab('configsTab')" id="navConfigs" style="display:none;">Configs</a>
             <a onclick="switchTab('internalTab')" id="navInternal" style="display:none;">Internal</a>
         </div>
@@ -110,14 +113,50 @@
         <section id="homeTab" class="panel active-tab full-width" style="display:block;">
             <div class="hero-banner">
                 <h1>Welcome to <span>lilvape.lol</span></h1>
-                <p>Continuous updates, elite configurations, and total game control. Log in with Discord to access your validated control panel.</p>
+                <p>Continuous updates, elite configurations, and total game control. Log in with Discord or head over to the Buy tab to get started.</p>
                 <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
                     <a href="/auth/discord" class="btn btn-discord" style="padding: 0.8rem 2rem; font-size: 0.9rem;">Login with Discord</a>
+                    <button onclick="switchTab('buyTab')" class="btn btn-outline" style="padding: 0.8rem 2rem; font-size: 0.9rem;">Purchase Access</button>
                 </div>
             </div>
         </section>
 
-        <!-- TAB 2: CONFIGS MANAGEMENT (LOCKED UNLESS PAID/LOGGED IN) -->
+        <!-- TAB 2: BUY / PAYMENT METHODS -->
+        <section id="buyTab" class="panel full-width" style="display:none;">
+            <h2>Choose Your Payment Method</h2>
+            <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); margin-bottom: 2rem;">
+                Select a payment option below. Once your payment is verified, your Discord account will automatically receive the buyer role and full panel access.
+            </p>
+            <div class="grid-2">
+                <div class="config-card" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <h4>PayPal Secure Checkout</h4>
+                        <p style="margin-top: 0.5rem; margin-bottom: 1.5rem;">Instant automated verification via PayPal. Click below to proceed with your payment.</p>
+                    </div>
+                    <a href="https://paypal.me/awsomepey" target="_blank" class="btn btn-discord" style="width: 100%;">Pay with PayPal</a>
+                </div>
+
+                <div class="config-card" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <h4>Roblox Gamepass</h4>
+                        <p style="margin-top: 0.5rem; margin-bottom: 1.5rem;">Purchase the official access gamepass directly on Roblox to unlock your verified buyer privileges.</p>
+                    </div>
+                    <a href="https://www.roblox.com/game-pass/1998111592/the-greatest" target="_blank" class="btn btn-discord" style="width: 100%;">Pay with Roblox Gamepass</a>
+                </div>
+
+                <div class="config-card" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; grid-column: 1 / -1;">
+                    <div>
+                        <h4>Zelle Transfer</h4>
+                        <p style="margin-top: 0.5rem; margin-bottom: 1rem;">Send your payment directly using the Zelle hashtag/handle below, then open a ticket in our Discord server with your receipt to claim your role.</p>
+                        <div style="background: rgba(15, 4, 7, 0.95); padding: 1rem; border: 1px solid var(--border-color); border-radius: 2px; font-family: var(--font-mono); color: var(--accent-primary); font-weight: bold; font-size: 1rem; text-align: center; letter-spacing: 0.1rem;">
+                            Zelle Tag: @yourZelleHashtag
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: CONFIGS MANAGEMENT (LOCKED UNLESS PAID/LOGGED IN) -->
         <div id="configsTab" style="display:none;" class="grid-2">
             <section class="panel active-tab" style="display:block;">
                 <h2>Live Script Settings Panel</h2>
@@ -146,7 +185,7 @@
             </section>
         </div>
 
-        <!-- TAB 3: INTERNAL SCRIPT SOURCE MANAGER (LOCKED) -->
+        <!-- TAB 4: INTERNAL SCRIPT SOURCE MANAGER (LOCKED) -->
         <div id="internalTab" style="display:none;" class="full-width">
             <section class="panel active-tab full-width" style="display:block;">
                 <h2>Secure Script Source Storage</h2>
@@ -168,16 +207,21 @@
 
         function switchTab(tabId) {
             document.getElementById('homeTab').style.display = 'none';
+            document.getElementById('buyTab').style.display = 'none';
             document.getElementById('configsTab').style.display = 'none';
             document.getElementById('internalTab').style.display = 'none';
 
             document.getElementById('navHome').classList.remove('active');
+            document.getElementById('navBuy').classList.remove('active');
             document.getElementById('navConfigs').classList.remove('active');
             document.getElementById('navInternal').classList.remove('active');
 
             if (tabId === 'homeTab') {
                 document.getElementById('homeTab').style.display = 'block';
                 document.getElementById('navHome').classList.add('active');
+            } else if (tabId === 'buyTab') {
+                document.getElementById('buyTab').style.display = 'block';
+                document.getElementById('navBuy').classList.add('active');
             } else if (tabId === 'configsTab') {
                 document.getElementById('configsTab').style.display = 'grid';
                 document.getElementById('navConfigs').classList.add('active');
@@ -192,7 +236,7 @@
                 const res = await fetch('/api/user');
                 const data = await res.json();
                 const authArea = document.getElementById('authArea');
-                const heroBanner = document.querySelector('.hero-banner'); // Selects the home page banner
+                const heroBanner = document.querySelector('.hero-banner');
 
                 if (!data.loggedIn || !data.hasAccess) {
                     authArea.innerHTML = `<a href="/auth/discord" class="btn btn-discord">Login with Discord</a>`;
@@ -215,7 +259,6 @@
                     </div>
                 `;
 
-                // Update Home Tab Hero Banner to show active session instead of login button
                 if (heroBanner) {
                     heroBanner.innerHTML = `
                         <h1>Welcome back, <span>${data.user.username}</span></h1>
@@ -233,7 +276,6 @@
             }
         }
 
-        // --- DYNAMIC SETTINGS UI GENERATOR FOR LUA TABLES ---
         function renderSettingsTable(settingsObj, parentKey = '', container = document.getElementById('settings-container')) {
             if (parentKey === '') container.innerHTML = '';
 
@@ -279,31 +321,14 @@
                 if (data.success && data.settings && Object.keys(data.settings).length > 0) {
                     configToRender = data.settings;
                 } else {
-                    // Default baseline configuration matching your script layout
                     configToRender = {
-                        UI: {
-                            "Watermark Text Size": 32
-                        },
-                        Keybinds: {
-                            "Silent Aim": "C",
-                            "Cam Lock": "Q"
-                        },
+                        UI: { "Watermark Text Size": 32 },
+                        Keybinds: { "Silent Aim": "C", "Cam Lock": "Q" },
                         Combat: {
-                            "Silent Aim": {
-                                Enabled: true,
-                                Active: false,
-                                Type: "Legit",
-                                "Max Distance": 50000,
-                                FOV: { Size: 1000, Visible: false }
-                            },
-                            Orbit: {
-                                Enabled: true,
-                                Type: "Destroy Cheaters"
-                            }
+                            "Silent Aim": { Enabled: true, Active: false, Type: "Legit", "Max Distance": 50000, FOV: { Size: 1000, Visible: false } },
+                            Orbit: { Enabled: true, Type: "Destroy Cheaters" }
                         },
-                        Movement: {
-                            Speed: { Enabled: true, Multiplier: 300 }
-                        }
+                        Movement: { Speed: { Enabled: true, Multiplier: 300 } }
                     };
                 }
                 renderSettingsTable(configToRender);
