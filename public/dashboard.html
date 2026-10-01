@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>lilvapex_x // Control </title>
+    <title>lilvapex_x // Control</title>
     <link href="https://fonts.googleapis.com/css2?family=Paytone+One&family=Plus+Jakarta+Sans:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -35,12 +35,13 @@
         .logo span { color: var(--accent-primary); }
 
         .nav-links { display: flex; gap: 2rem; font-family: var(--font-mono); font-size: 0.85rem; text-transform: uppercase; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; transition: 0.2s; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; transition: 0.2s; cursor: pointer; }
         .nav-links a.active, .nav-links a:hover { color: var(--text-main); border-bottom: 2px solid var(--accent-primary); padding-bottom: 2px; }
 
         .btn {
             font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; text-transform: uppercase;
             padding: 0.6rem 1.2rem; border-radius: 2px; cursor: pointer; text-decoration: none; transition: all 0.3s;
+            display: inline-block; text-align: center;
         }
         .btn-discord { background-color: var(--accent-primary); color: #ffffff; border: 1px solid var(--accent-primary); }
         .btn-discord:hover { box-shadow: 0 0 15px var(--accent-glow); background-color: #a32243; }
@@ -84,11 +85,11 @@
 <body>
 
     <header>
-        <div class="logo">lilvapex_x <span>// </span></div>
+        <div class="logo">lilvapex_x <span>// Control</span></div>
         <div class="nav-links">
-            <a href="#" class="active">Configs</a>
-            <a href="#">Overview</a>
-            <a href="#">Internal</a>
+            <a onclick="switchTab('configsTab')" id="navConfigs" class="active">Configs</a>
+            <a onclick="switchTab('buyTab')" id="navBuy">Buy</a>
+            <a onclick="switchTab('internalTab')" id="navInternal">Internal</a>
         </div>
         <div class="user-auth-area" id="authArea">
             <a href="/auth/discord" class="btn btn-discord">Login with Discord</a>
@@ -96,76 +97,122 @@
     </header>
 
     <main id="mainContent">
-        <!-- Panel 1: Live Script Table Controls -->
-        <section class="panel">
-            <h2>Silent Aim & Combat Configuration</h2>
-            <form id="settingsForm">
-                <div class="form-group">
-                    <label for="silentEnabled">Silent Aim Enabled</label>
-                    <select id="silentEnabled">
-                        <option value="true">True</option>
-                        <option value="false">False</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="silentType">Silent Aim Type Mode</label>
-                    <select id="silentType">
-                        <option value="Legit">Legit</option>
-                        <option value="Blantan">Blantan</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="fovSize">FOV Circle Radius Size</label>
-                    <input type="number" id="fovSize" value="1000" min="50" max="5000">
-                </div>
-                <div class="form-group">
-                    <label for="hitLocationMode">Hit Location Mode</label>
-                    <select id="hitLocationMode">
-                        <option value="Legit">Legit</option>
-                        <option value="ClosestPoint">ClosestPoint</option>
-                        <option value="HumanoidRootPart">HumanoidRootPart</option>
-                    </select>
-                </div>
-                <div class="checkbox-row">
-                    <input type="checkbox" id="isPublicToggle">
-                    <label for="isPublicToggle" style="display:inline; margin:0; cursor:pointer;">Publish configuration table to Cloud Network</label>
-                </div>
-                <button type="submit" class="btn btn-discord" style="margin-top: 1.5rem; width: 100%;">Save & Sync Configuration Table</button>
-                <div id="saveStatus" class="status-msg"></div>
-            </form>
-        </section>
+        <!-- TAB 1: CONFIGS PANEL -->
+        <div id="configsTab" class="full-width" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <!-- Panel 1: Live Script Table Controls -->
+            <section class="panel">
+                <h2>Silent Aim & Combat Configuration</h2>
+                <form id="settingsForm">
+                    <div class="form-group">
+                        <label for="silentEnabled">Silent Aim Enabled</label>
+                        <select id="silentEnabled">
+                            <option value="true">True</option>
+                            <option value="false">False</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="silentType">Silent Aim Type Mode</label>
+                        <select id="silentType">
+                            <option value="Legit">Legit</option>
+                            <option value="Blantan">Blantan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="fovSize">FOV Circle Radius Size</label>
+                        <input type="number" id="fovSize" value="1000" min="50" max="5000">
+                    </div>
+                    <div class="form-group">
+                        <label for="hitLocationMode">Hit Location Mode</label>
+                        <select id="hitLocationMode">
+                            <option value="Legit">Legit</option>
+                            <option value="ClosestPoint">ClosestPoint</option>
+                            <option value="HumanoidRootPart">HumanoidRootPart</option>
+                        </select>
+                    </div>
+                    <div class="checkbox-row">
+                        <input type="checkbox" id="isPublicToggle">
+                        <label for="isPublicToggle" style="display:inline; margin:0; cursor:pointer;">Publish configuration table to Cloud Network</label>
+                    </div>
+                    <button type="submit" class="btn btn-discord" style="margin-top: 1.5rem; width: 100%;">Save & Sync Configuration Table</button>
+                    <div id="saveStatus" class="status-msg"></div>
+                </form>
+            </section>
 
-        <!-- Panel 2: Movement & Orbit Adjustments -->
-        <section class="panel">
-            <h2>Movement & Orbit Parameters</h2>
-            <form id="movementForm">
-                <div class="form-group">
-                    <label for="speedMultiplier">Speed Multiplier</label>
-                    <input type="number" id="speedMultiplier" value="300" min="16" max="1000">
-                </div>
-                <div class="form-group">
-                    <label for="orbitType">Orbit Default Preset Mode</label>
-                    <select id="orbitType">
-                        <option value="Troll Legit Players">Troll Legit Players</option>
-                        <option value="Insane">Insane</option>
-                        <option value="Destroy Cheaters">Destroy Cheaters</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="skyboxSelect">Selected Skybox Theme</label>
-                    <select id="skyboxSelect">
-                        <option value="Anime">Anime</option>
-                        <option value="Space">Space</option>
-                        <option value="Dark">Dark</option>
-                        <option value="Retro">Retro</option>
-                        <option value="Midnight">Midnight</option>
-                    </select>
-                </div>
-            </form>
-        </section>
+            <!-- Panel 2: Movement & Orbit Adjustments -->
+            <section class="panel">
+                <h2>Movement & Orbit Parameters</h2>
+                <form id="movementForm">
+                    <div class="form-group">
+                        <label for="speedMultiplier">Speed Multiplier</label>
+                        <input type="number" id="speedMultiplier" value="300" min="16" max="1000">
+                    </div>
+                    <div class="form-group">
+                        <label for="orbitType">Orbit Default Preset Mode</label>
+                        <select id="orbitType">
+                            <option value="Troll Legit Players">Troll Legit Players</option>
+                            <option value="Insane">Insane</option>
+                            <option value="Destroy Cheaters">Destroy Cheaters</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="skyboxSelect">Selected Skybox Theme</label>
+                        <select id="skyboxSelect">
+                            <option value="Anime">Anime</option>
+                            <option value="Space">Space</option>
+                            <option value="Dark">Dark</option>
+                            <option value="Retro">Retro</option>
+                            <option value="Midnight">Midnight</option>
+                        </select>
+                    </div>
+                </form>
+            </section>
 
-        <!-- Panel 3: Lua Script Source Hiding Manager -->
-        <section class="panel full-width">
+            <!-- Panel 4: Public Cloud Configs Gallery -->
+            <section class="panel full-width">
+                <h2>Cloud Configs Directory</h2>
+                <div id="cloudConfigsContainer">
+                    <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted);">Please log in with Discord to view configurations.</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- TAB 2: BUY TAB -->
+        <div id="buyTab" class="panel full-width" style="display:none;">
+            <h2>Choose Your Payment Method</h2>
+            <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); margin-bottom: 2rem;">
+                Select an option below to purchase access. Verified accounts automatically receive the buyer role on Discord.
+            </p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+                <div class="config-card" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <h4>PayPal Secure Checkout</h4>
+                        <p style="margin-top: 0.5rem; margin-bottom: 1.5rem;">Automated instant verification via PayPal.</p>
+                    </div>
+                    <a href="https://paypal.me/awsomepey" target="_blank" class="btn btn-discord" style="width: 100%;">Pay with PayPal</a>
+                </div>
+
+                <div class="config-card" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <h4>Roblox Gamepass</h4>
+                        <p style="margin-top: 0.5rem; margin-bottom: 1.5rem;">Purchase directly through the Roblox gamepass link.</p>
+                    </div>
+                    <a href="https://www.roblox.com/game-pass/1998111592/the-greatest" target="_blank" class="btn btn-discord" style="width: 100%;">Pay with Gamepass</a>
+                </div>
+
+                <div class="config-card" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; grid-column: 1 / -1;">
+                    <div>
+                        <h4>Zelle Transfer</h4>
+                        <p style="margin-top: 0.5rem; margin-bottom: 1rem;">Send funds using our Zelle handle, then open a ticket in our Discord server.</p>
+                        <div style="background: rgba(15, 4, 7, 0.95); padding: 1rem; border: 1px solid var(--border-color); border-radius: 2px; font-family: var(--font-mono); color: var(--accent-primary); font-weight: bold; font-size: 1rem; text-align: center; letter-spacing: 0.1rem;">
+                            Zelle Tag: @yourZelleHashtag
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: INTERNAL SCRIPT SOURCE MANAGER -->
+        <div id="internalTab" class="panel full-width" style="display:none;">
             <h2>Secure Script Source Storage (No Loadstring Link Needed)</h2>
             <form id="scriptSourceForm">
                 <div class="form-group">
@@ -175,20 +222,31 @@
                 <button type="submit" class="btn btn-discord">Save Script Source to Server</button>
                 <div id="scriptSaveStatus" class="status-msg"></div>
             </form>
-        </section>
-
-        <!-- Panel 4: Public Cloud Configs Gallery -->
-        <section class="panel full-width">
-            <h2>Cloud Configs Directory</h2>
-            <div id="cloudConfigsContainer">
-                <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted);">Please log in with Discord to view configurations.</p>
-            </div>
-        </section>
+        </div>
     </main>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
+
+        function switchTab(tabId) {
+            document.getElementById('configsTab').style.display = 'none';
+            document.getElementById('buyTab').style.display = 'none';
+            document.getElementById('internalTab').style.display = 'none';
+
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+
+            if (tabId === 'configsTab') {
+                document.getElementById('configsTab').style.display = 'grid';
+                document.getElementById('navConfigs').classList.add('active');
+            } else if (tabId === 'buyTab') {
+                document.getElementById('buyTab').style.display = 'block';
+                document.getElementById('navBuy').classList.add('active');
+            } else if (tabId === 'internalTab') {
+                document.getElementById('internalTab').style.display = 'block';
+                document.getElementById('navInternal').classList.add('active');
+            }
+        }
 
         async function checkUserData() {
             try {
@@ -265,7 +323,7 @@
                 const speedMultiplier = Number(document.getElementById('speedMultiplier').value);
                 const orbitType = document.getElementById('orbitType').value;
                 const selectedSkybox = document.getElementById('skyboxSelect').value;
-                const isPublic = document.getElementById('isPublicToggle').checked;
+                const isPublic = document.getElementById('isPublicToggle').javascript || document.getElementById('isPublicToggle').checked;
 
                 const structuredSettings = {
                     General: {
@@ -276,17 +334,11 @@
                                 FOV: { Size: fovSize },
                                 "Hit Location": { Mode: hitLocationMode }
                             },
-                            Orbit: {
-                                Type: orbitType
-                            },
+                            Orbit: { Type: orbitType },
                             ESP: { Enabled: true }
                         },
-                        Movement: {
-                            Speed: { Multiplier: speedMultiplier }
-                        },
-                        Environment: {
-                            "Selected Skybox": selectedSkybox
-                        }
+                        Movement: { Speed: { Multiplier: speedMultiplier } },
+                        Environment: { "Selected Skybox": selectedSkybox }
                     }
                 };
 
@@ -306,9 +358,13 @@
                         statusDiv.textContent = "Save failed. Make sure you are logged in.";
                     }
                 } catch (err) {
-                    document.getElementById('saveStatus').textContent = "Network synchronization error.";
+                    displayNetworkError();
                 }
             });
+        }
+
+        function displayNetworkError() {
+            document.getElementById('saveStatus').textContent = "Network synchronization error.";
         }
 
         const scriptSourceForm = document.getElementById('scriptSourceForm');
