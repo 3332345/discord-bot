@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>lilvape.lol - Home</title>
+    <title>Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -14,8 +14,6 @@
             --primary-hover: #db2777;
             --text-main: #f9fafb;
             --text-muted: #9ca3af;
-            --success: #10b981;
-            --error: #ef4444;
         }
 
         * {
@@ -32,283 +30,75 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
         }
 
-        .dashboard-container {
-            width: 800px;
+        .login-container {
+            width: 400px;
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 16px;
+            padding: 40px 30px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
+            text-align: center;
         }
 
-        /* Top Header & Navbar */
-        .header {
-            padding: 20px 30px;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(17, 24, 39, 0.7);
-        }
-
-        .logo {
-            font-size: 20px;
-            font-weight: 700;
+        h1 {
+            font-size: 26px;
+            font-weight: 600;
+            margin-bottom: 8px;
             color: var(--text-main);
-            letter-spacing: 0.5px;
         }
 
-        .logo span {
+        h1 span {
             color: var(--primary);
         }
 
-        .nav-tabs {
-            display: flex;
-            gap: 10px;
-        }
-
-        .tab-btn {
-            background-color: #1f2937;
-            border: 1px solid var(--border-color);
+        p {
             color: var(--text-muted);
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 13px;
-            transition: all 0.2s ease;
-        }
-
-        .tab-btn:hover {
-            color: var(--text-main);
-            border-color: var(--primary);
-        }
-
-        .tab-btn.active {
-            background-color: var(--primary);
-            color: #ffffff;
-            border-color: var(--primary);
-        }
-
-        .tab-btn.locked {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* Body Sections */
-        .content-body {
-            padding: 30px;
-            height: 500px;
-            overflow-y: auto;
-        }
-
-        .tab-pane {
-            display: none;
-        }
-
-        .tab-pane.active {
-            display: block;
-        }
-
-        h2 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: var(--text-main);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            font-size: 13px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        input[type="text"], input[type="password"] {
-            width: 100%;
-            padding: 12px 15px;
-            background-color: #0b0f19;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            color: var(--text-main);
             font-size: 14px;
-            transition: border-color 0.2s;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
-        .btn {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            font-size: 14px;
-            transition: background-color 0.2s;
-        }
-
-        .btn:hover {
-            background-color: var(--primary-hover);
+            margin-bottom: 30px;
         }
 
         .discord-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
             background-color: #5865F2;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            width: 100%;
+            transition: background-color 0.2s;
         }
+
         .discord-btn:hover {
             background-color: #4752C4;
         }
 
-        .status-msg {
-            margin-top: 15px;
-            font-size: 13px;
-            text-align: center;
-            font-weight: 500;
-        }
-
-        .hero-banner {
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        .hero-banner h1 {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--text-main);
-        }
-
-        .hero-banner p {
-            color: var(--text-muted);
-            font-size: 14px;
-            line-height: 1.6;
+        .discord-icon {
+            width: 20px;
+            height: 20px;
+            fill: white;
         }
     </style>
 </head>
 <body>
 
-    <div class="dashboard-container">
-        <!-- Navigation Header -->
-        <div class="header">
-            <div class="logo">lilvape<span>.lol</span></div>
-            <div class="nav-tabs">
-                <button class="tab-btn active" onclick="switchTab('welcome')">Welcome</button>
-                <button class="tab-btn locked" id="nav-configs" onclick="switchTab('configs')">Configs 🔒</button>
-                <button class="tab-btn locked" id="nav-cloud" onclick="switchTab('cloud')">Cloud Configs 🔒</button>
-            </div>
-        </div>
+    <div class="login-container">
+        <h1>lilvape<span>.lol</span></h1>
+        <p>Login with Discord to access your dashboard</p>
 
-        <!-- Panel Content -->
-        <div class="content-body">
-            
-            <!-- 1. WELCOME TAB (LOGIN GATE) -->
-            <div id="tab-welcome" class="tab-pane active">
-                <div class="hero-banner">
-                    <h1>Welcome to lilvape.lol</h1>
-                    <p>Authenticate with your license key and connect via Discord to access configuration controls and community presets.</p>
-                </div>
-                <div class="form-group">
-                    <label>License Key</label>
-                    <input type="text" id="license-key" placeholder="Enter your license key">
-                </div>
-                <div class="form-group">
-                    <label>Discord Account Verification</label>
-                    <button class="btn discord-btn" onclick="authenticateUser()">Login via Discord</button>
-                </div>
-                <div id="auth-status" class="status-msg" style="color: var(--text-muted);">Status: Not Logged In</div>
-            </div>
-
-            <!-- 2. CONFIGS TAB (LOCKED UNTIL VERIFIED) -->
-            <div id="tab-configs" class="tab-pane">
-                <h2>Configs Unlocked</h2>
-                <p style="color: var(--text-muted); font-size: 13px;">Redirecting you to the full dashboard control panel...</p>
-            </div>
-
-            <!-- 3. CLOUD CONFIGS TAB (LOCKED UNTIL VERIFIED) -->
-            <div id="tab-cloud" class="tab-pane">
-                <h2>Cloud Configs Unlocked</h2>
-                <p style="color: var(--text-muted); font-size: 13px;">Buyer community configurations are ready.</p>
-            </div>
-
-        </div>
+        <a href="/auth/discord" class="discord-btn">
+            <svg class="discord-icon" viewBox="0 0 127.14 96.36">
+                <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.15c2.65-27.28-4.48-51.07-19.28-72.16ZM42.45,65.69c-6.18,0-11.28-5.69-11.28-12.7s5-12.7,11.28-12.7c6.35,0,11.44,5.73,11.28,12.7C53.73,60,48.8,65.69,42.45,65.69Zm42.24,0c-6.18,0-11.28-5.69-11.28-12.7s5-12.7,11.28-12.7c6.35,0,11.44,5.73,11.28,12.7C95,60,90.1,65.69,84.69,65.69Z"/>
+            </svg>
+            Login with Discord
+        </a>
     </div>
 
-    <script>
-        let isLoggedIn = false;
-        let hasBuyerRole = false;
-
-        function switchTab(tabName) {
-            if ((tabName === 'configs' || tabName === 'cloud')) {
-                if (!isLoggedIn) {
-                    alert("Please log in on the Welcome tab first!");
-                    return;
-                }
-                if (!hasBuyerRole) {
-                    alert("Access Restricted: You do not have the Buyer role!");
-                    return;
-                }
-            }
-
-            document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-
-            document.getElementById('tab-' + tabName).classList.add('active');
-            
-            if (tabName === 'welcome') document.querySelectorAll('.tab-btn')[0].classList.add('active');
-            if (tabName === 'configs') document.querySelectorAll('.tab-btn')[1].classList.add('active');
-            if (tabName === 'cloud') document.querySelectorAll('.tab-btn')[2].classList.add('active');
-        }
-
-        function authenticateUser() {
-            const keyInput = document.getElementById('license-key').value;
-            const statusEl = document.getElementById('auth-status');
-
-            if (!keyInput) {
-                statusEl.innerText = "⚠️ Please enter a license key.";
-                statusEl.style.color = "var(--error)";
-                return;
-            }
-
-            // Authentication verification logic check
-            isLoggedIn = true;
-            hasBuyerRole = true; // Verified through Discord API role check
-
-            if (hasBuyerRole) {
-                statusEl.innerText = "✅ Successfully verified! Redirecting to dashboard...";
-                statusEl.style.color = "var(--success)";
-
-                const navConfigs = document.getElementById('nav-configs');
-                const navCloud = document.getElementById('nav-cloud');
-                
-                navConfigs.classList.remove('locked');
-                navConfigs.innerText = "Configs";
-                
-                navCloud.classList.remove('locked');
-                navCloud.innerText = "Cloud Configs";
-
-                setTimeout(() => {
-                    window.location.href = "dashboard.html";
-                }, 1000);
-            } else {
-                statusEl.innerText = "❌ Logged in, but Buyer role is missing!";
-                statusEl.style.color = "var(--error)";
-            }
-        }
-    </script>
 </body>
 </html>
