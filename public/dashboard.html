@@ -1,16 +1,11 @@
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lilvapex_x // lilvape.lol</title>
+    <title>lilvapex_x // Control</title>
 <link href="https://fonts.googleapis.com/css2?family=Paytone+One&family=Plus+Jakarta+Sans:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
-            --bg-color: #1a080c;
-            --panel-bg: rgba(35, 12, 18, 0.85);
-            --border-color: #4a1522;
-            --accent-primary: #8a1c38;
-            --accent-glow: rgba(138, 28, 56, 0.25);
-            --text-main: #f7ebee;
-            --text-muted: #b8989f;
-            --font-display: 'Paytone One', serif;
-            --font-sans: 'Plus Jakarta Sans', sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
     /* Change these colors to light pink */
     --bg-color: #261318;           /* A soft, deep dark base that fits pink accents */
     --panel-bg: rgba(43, 20, 27, 0.85);
@@ -24,6 +19,591 @@
     --font-sans: 'Plus Jakarta Sans', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
 }
+            --bg-color: #261318;
+            --panel-bg: rgba(43, 20, 27, 0.85);
+            --border-color: #7a3547;
+            --accent-primary: #ff69b4;
+            --accent-glow: rgba(255, 105, 180, 0.35);
+            --text-main: #ffe6f0;
+            --text-muted: #d99cb2;
+            --font-display: 'Paytone One', serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
+@@ -31,7 +28,7 @@
+align-items: center;
+padding: 1.5rem 4rem;
+border-bottom: 1px solid var(--border-color);
+            background: rgba(26, 8, 12, 0.95);
+            background: rgba(38, 19, 24, 0.95);
+}
+
+.logo { font-family: var(--font-display); font-size: 1.6rem; letter-spacing: 0.2rem; color: var(--text-main); text-transform: uppercase; }
+@@ -43,38 +40,30 @@
+
+.btn {
+font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; text-transform: uppercase;
+            padding: 0.6rem 1.2rem; border-radius: 2px; cursor: pointer; text-decoration: none; transition: all 0.3s;
+            padding: 0.8rem 1.2rem; border-radius: 2px; cursor: pointer; text-decoration: none; transition: all 0.3s;
+display: inline-block; text-align: center;
+}
+        .btn-discord { background-color: var(--accent-primary); color: #ffffff; border: 1px solid var(--accent-primary); }
+        .btn-discord:hover { box-shadow: 0 0 15px var(--accent-glow); background-color: #a32243; }
+        .btn-discord { background-color: var(--accent-primary); color: #261318; border: 1px solid var(--accent-primary); }
+        .btn-discord:hover { box-shadow: 0 0 15px var(--accent-glow); background-color: #ff85c0; }
+.btn-outline { background: transparent; color: var(--text-muted); border: 1px solid var(--border-color); }
+.btn-outline:hover { border-color: var(--accent-primary); color: var(--text-main); }
+
+        main { max-width: 1200px; margin: 3rem auto; padding: 0 2rem; display: flex; flex-direction: column; gap: 2rem; }
+        main { max-width: 1200px; margin: 3rem auto; padding: 0 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        @media(max-width: 900px) { main { grid-template-columns: 1fr; } header { padding: 1.5rem 2rem; } }
+
+.panel {
+            background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 4px; padding: 2.5rem;
+            position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: none;
+            background: var(--panel-bg); border: 1px solid var(--border-color); border-radius: 4px; padding: 2rem;
+            position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 100%;
+}
+        .panel.active-tab { display: block; }
+.panel::after { content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--accent-primary); }
+        .full-width { grid-column: 1 / -1; }
+
+        .hero-banner { text-align: center; padding: 3rem 1rem; }
+        .hero-banner h1 { font-family: var(--font-display); font-size: 2.5rem; margin-bottom: 1rem; letter-spacing: 0.05rem; text-transform: uppercase; }
+        .hero-banner h1 span { color: var(--accent-primary); }
+        .hero-banner p { font-family: var(--font-mono); font-size: 1rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 2rem auto; line-height: 1.6; }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+        @media(min-width: 768px) { .grid-2 { grid-template-columns: repeat(2, 1fr); } }
+        h2 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 1.5rem; letter-spacing: 0.05rem; text-transform: uppercase; color: var(--text-main); }
+
+        h2, h3 { font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 1rem; letter-spacing: 0.05rem; text-transform: uppercase; color: var(--text-main); }
+        h3 { font-size: 1rem; color: var(--accent-primary); border-bottom: 1px solid var(--border-color); padding-bottom: 0.3rem; margin-top: 1rem; }
+
+        .form-group, .setting-row { margin-bottom: 1rem; }
+        .form-group { margin-bottom: 1.2rem; }
+label { display: block; font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.4rem; letter-spacing: 0.05rem; }
+input[type="text"], input[type="number"], select, textarea {
+            width: 100%; padding: 0.75rem 1rem; background: rgba(15, 4, 7, 0.8); border: 1px solid var(--border-color);
+            width: 100%; padding: 0.75rem 1rem; background: rgba(20, 8, 12, 0.8); border: 1px solid var(--border-color);
+border-radius: 2px; font-family: var(--font-mono); color: var(--text-main); font-size: 0.85rem;
+}
+textarea { resize: vertical; min-height: 120px; }
+@@ -83,124 +72,163 @@
+.checkbox-row { display: flex; align-items: center; gap: 0.75rem; margin-top: 0.8rem; font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); cursor: pointer; }
+.checkbox-row input { accent-color: var(--accent-primary); width: 1.1rem; height: 1.1rem; }
+
+        .settings-section { background: rgba(15, 4, 7, 0.4); border: 1px solid var(--border-color); padding: 1.2rem; border-radius: 3px; margin-bottom: 1rem; }
+        .settings-subgroup { padding-left: 1rem; border-left: 2px solid var(--border-color); margin-top: 0.8rem; }
+
+.configs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; margin-top: 1rem; }
+        .config-card { background: rgba(15, 4, 7, 0.9); border: 1px solid var(--border-color); padding: 1.2rem; border-radius: 3px; }
+        .config-card h4 { font-family: var(--font-display); font-size: 1rem; color: var(--accent-primary); margin-bottom: 0.4rem; }
+        .config-card p { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.6rem; }
+        .config-card { background: rgba(20, 8, 12, 0.9); border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 3px; width: 100%; }
+        .config-card h4 { font-family: var(--font-display); font-size: 1.05rem; color: #ffffff; margin-bottom: 0.4rem; letter-spacing: 0.05rem; }
+        .config-card p { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.4; }
+
+        .status-msg { margin-top: 1rem; font-family: var(--font-mono); font-size: 0.8rem; color: #00ffaa; font-weight: 700; }
+        .status-msg { margin-top: 1rem; font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-primary); font-weight: 700; }
+.user-profile { display: flex; align-items: center; gap: 1rem; }
+.user-avatar { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--accent-primary); }
+</style>
+</head>
+<body>
+
+<header>
+        <div class="logo">lilvapex_x <span>// lilvape.lol</span></div>
+        <div class="logo">lilvapex_x <span>// Control</span></div>
+<div class="nav-links">
+            <a onclick="switchTab('homeTab')" id="navHome" class="active">Home</a>
+            <a onclick="switchTab('configsTab')" id="navConfigs" class="active">Configs</a>
+<a onclick="switchTab('buyTab')" id="navBuy">Buy</a>
+            <a onclick="switchTab('configsTab')" id="navConfigs" style="display:none;">Configs</a>
+            <a onclick="switchTab('internalTab')" id="navInternal" style="display:none;">Internal</a>
+            <a onclick="switchTab('internalTab')" id="navInternal">Internal</a>
+</div>
+<div class="user-auth-area" id="authArea">
+<a href="/auth/discord" class="btn btn-discord">Login with Discord</a>
+</div>
+</header>
+
+    <main id="mainContentArea">
+        <!-- TAB 1: HOME WELCOME & SHOP -->
+        <section id="homeTab" class="panel active-tab full-width" style="display:block;">
+            <div class="hero-banner">
+                <h1>Welcome to <span>lilvape.lol</span></h1>
+                <p>Continuous updates, elite configurations, and total game control. Log in with Discord or head over to the Buy tab to get started.</p>
+                <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+                    <a href="/auth/discord" class="btn btn-discord" style="padding: 0.8rem 2rem; font-size: 0.9rem;">Login with Discord</a>
+                    <button onclick="switchTab('buyTab')" class="btn btn-outline" style="padding: 0.8rem 2rem; font-size: 0.9rem;">Purchase Access</button>
+    <main id="mainContent">
+        <!-- TAB 1: CONFIGS PANEL -->
+        <div id="configsTab" class="full-width" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <!-- Panel 1: Live Script Table Controls -->
+            <section class="panel">
+                <h2>Silent Aim & Combat Configuration</h2>
+                <form id="settingsForm">
+                    <div class="form-group">
+                        <label for="silentEnabled">Silent Aim Enabled</label>
+                        <select id="silentEnabled">
+                            <option value="true">True</option>
+                            <option value="false">False</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="silentType">Silent Aim Type Mode</label>
+                        <select id="silentType">
+                            <option value="Legit">Legit</option>
+                            <option value="Blantan">Blantan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="fovSize">FOV Circle Radius Size</label>
+                        <input type="number" id="fovSize" value="1000" min="50" max="5000">
+                    </div>
+                    <div class="form-group">
+                        <label for="hitLocationMode">Hit Location Mode</label>
+                        <select id="hitLocationMode">
+                            <option value="Legit">Legit</option>
+                            <option value="ClosestPoint">ClosestPoint</option>
+                            <option value="HumanoidRootPart">HumanoidRootPart</option>
+                        </select>
+                    </div>
+                    <div class="checkbox-row">
+                        <input type="checkbox" id="isPublicToggle">
+                        <label for="isPublicToggle" style="display:inline; margin:0; cursor:pointer;">Publish configuration table to Cloud Network</label>
+                    </div>
+                    <button type="submit" class="btn btn-discord" style="margin-top: 1.5rem; width: 100%;">Save & Sync Configuration Table</button>
+                    <div id="saveStatus" class="status-msg"></div>
+                </form>
+            </section>
+
+            <!-- Panel 2: Movement & Orbit Adjustments -->
+            <section class="panel">
+                <h2>Movement & Orbit Parameters</h2>
+                <form id="movementForm">
+                    <div class="form-group">
+                        <label for="speedMultiplier">Speed Multiplier</label>
+                        <input type="number" id="speedMultiplier" value="300" min="16" max="1000">
+                    </div>
+                    <div class="form-group">
+                        <label for="orbitType">Orbit Default Preset Mode</label>
+                        <select id="orbitType">
+                            <option value="Troll Legit Players">Troll Legit Players</option>
+                            <option value="Insane">Insane</option>
+                            <option value="Destroy Cheaters">Destroy Cheaters</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="skyboxSelect">Selected Skybox Theme</label>
+                        <select id="skyboxSelect">
+                            <option value="Anime">Anime</option>
+                            <option value="Space">Space</option>
+                            <option value="Dark">Dark</option>
+                            <option value="Retro">Retro</option>
+                            <option value="Midnight">Midnight</option>
+                        </select>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Panel 4: Public Cloud Configs Gallery -->
+            <section class="panel full-width">
+                <h2>Cloud Configs Directory</h2>
+                <div id="cloudConfigsContainer">
+                    <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted);">Please log in with Discord to view configurations.</p>
+</div>
+            </div>
+        </section>
+            </section>
+        </div>
+
+        <!-- TAB 2: BUY / PAYMENT METHODS -->
+        <section id="buyTab" class="panel full-width" style="display:none;">
+        <!-- TAB 2: BUY TAB -->
+        <div id="buyTab" class="panel full-width" style="display:none;">
+<h2>Choose Your Payment Method</h2>
+<p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted); margin-bottom: 2rem;">
+Select a payment option below. Once your payment is verified, your Discord account will automatically receive the buyer role and full panel access.
+</p>
+            <div class="grid-2">
+                <div class="config-card" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between;">
+            
+            <!-- Payment Grid Container to align columns perfectly -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; width: 100%;">
+                
+                <!-- PayPal Box -->
+                <div class="config-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+<div>
+<h4>PayPal Secure Checkout</h4>
+                        <p style="margin-top: 0.5rem; margin-bottom: 1.5rem;">Instant automated verification via PayPal. Click below to proceed with your payment.</p>
+                        <p>Instant automated verification via PayPal. Click below to proceed with your payment.</p>
+</div>
+<a href="https://paypal.me/awsomepey" target="_blank" class="btn btn-discord" style="width: 100%;">Pay with PayPal</a>
+</div>
+
+                <div class="config-card" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between;">
+                <!-- Roblox Gamepass Box -->
+                <div class="config-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+<div>
+<h4>Roblox Gamepass</h4>
+                        <p style="margin-top: 0.5rem; margin-bottom: 1.5rem;">Purchase the official access gamepass directly on Roblox to unlock your verified buyer privileges.</p>
+                        <p>Purchase the official access gamepass directly on Roblox to unlock your verified buyer privileges.</p>
+</div>
+<a href="https://www.roblox.com/game-pass/1998111592/the-greatest" target="_blank" class="btn btn-discord" style="width: 100%;">Pay with Roblox Gamepass</a>
+</div>
+
+                <div class="config-card" style="padding: 2rem; display: flex; flex-direction: column; justify-content: space-between; grid-column: 1 / -1;">
+                <!-- Zelle Transfer Box (Full Width spanning both columns) -->
+                <div class="config-card" style="grid-column: 1 / -1; display: flex; flex-direction: column; justify-content: space-between;">
+<div>
+<h4>Zelle Transfer</h4>
+                        <p style="margin-top: 0.5rem; margin-bottom: 1rem;">Send your payment directly using the Zelle hashtag/handle below, then open a ticket in our Discord server with your receipt to claim your role. Roblox Gamepass and paypal automatically give you role.</p>
+                        <div style="background: rgba(15, 4, 7, 0.95); padding: 1rem; border: 1px solid var(--border-color); border-radius: 2px; font-family: var(--font-mono); color: var(--accent-primary); font-weight: bold; font-size: 1rem; text-align: center; letter-spacing: 0.1rem;">
+                            Zelle Tag: @9293048307
+                        </div>
+                        <p>Send your payment directly using the Zelle hashtag/handle below, then open a ticket in our Discord server with your receipt to claim your role. Roblox Gamepass and paypal automatically give you role.</p>
+                    </div>
+                    <div style="background: rgba(15, 4, 7, 0.95); padding: 1rem; border: 1px solid var(--border-color); border-radius: 2px; font-family: var(--font-mono); color: var(--accent-primary); font-weight: bold; font-size: 1rem; text-align: center; letter-spacing: 0.1rem; margin-top: 1rem;">
+                        Zelle Tag: @9293048307
+</div>
+</div>
+            </div>
+        </section>
+
+        <!-- TAB 3: CONFIGS MANAGEMENT (LOCKED UNLESS PAID/LOGGED IN) -->
+        <div id="configsTab" style="display:none;" class="grid-2">
+            <section class="panel active-tab" style="display:block;">
+                <h2>Live Script Settings Panel</h2>
+                <p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+                    Modify your Lua configuration table variables below. Changes sync in real-time in your game.
+                </p>
+                
+                <div id="settings-container">
+                    <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted);">Loading configuration schema...</p>
+                </div>
+
+                <div class="checkbox-row" style="margin-top: 1.5rem;">
+                    <input type="checkbox" id="isPublicToggle" checked>
+                    <label for="isPublicToggle" style="display:inline; margin:0; cursor:pointer;">Publish configuration table to Cloud Network</label>
+                </div>
+
+                <button type="button" id="saveSettingsBtn" class="btn btn-discord" style="margin-top: 1.5rem; width: 100%;">Save & Sync Configuration Table</button>
+                <div id="saveStatus" class="status-msg"></div>
+            </section>
+
+            <section class="panel active-tab full-width" style="display:block; grid-column: 1 / -1;">
+                <h2>Cloud Configs Directory</h2>
+                <div id="cloudConfigsContainer">
+                    <p style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted);">Loading public configurations...</p>
+                </div>
+            </section>
+            </div>
+</div>
+
+        <!-- TAB 4: INTERNAL SCRIPT SOURCE MANAGER (LOCKED) -->
+        <div id="internalTab" style="display:none;" class="full-width">
+            <section class="panel active-tab full-width" style="display:block;">
+                <h2>Secure Script Source Storage</h2>
+                <form id="scriptSourceForm">
+                    <div class="form-group">
+                        <label for="rawScriptInput">Paste your full raw Lua script code here to host it privately:</label>
+                        <textarea id="rawScriptInput" placeholder="-- Paste your script source code here..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-discord">Save Script Source to Server</button>
+                    <div id="scriptSaveStatus" class="status-msg"></div>
+                </form>
+            </section>
+        <!-- TAB 3: INTERNAL SCRIPT SOURCE MANAGER -->
+        <div id="internalTab" class="panel full-width" style="display:none;">
+            <h2>Secure Script Source Storage (No Loadstring Link Needed)</h2>
+            <form id="scriptSourceForm">
+                <div class="form-group">
+                    <label for="rawScriptInput">Paste your full raw Lua script code here to host it privately:</label>
+                    <textarea id="rawScriptInput" placeholder="-- Paste your script source code here..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-discord">Save Script Source to Server</button>
+                <div id="scriptSaveStatus" class="status-msg"></div>
+            </form>
+</div>
+</main>
+
+@@ -209,187 +237,49 @@ <h2>Secure Script Source Storage</h2>
+const socket = io();
+
+function switchTab(tabId) {
+            document.getElementById('homeTab').style.display = 'none';
+            document.getElementById('buyTab').style.display = 'none';
+document.getElementById('configsTab').style.display = 'none';
+            document.getElementById('buyTab').style.display = 'none';
+document.getElementById('internalTab').style.display = 'none';
+
+            document.getElementById('navHome').classList.remove('active');
+            document.getElementById('navBuy').classList.remove('active');
+            document.getElementById('navConfigs').classList.remove('active');
+            document.getElementById('navInternal').classList.remove('active');
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+
+            if (tabId === 'homeTab') {
+                document.getElementById('homeTab').style.display = 'block';
+                document.getElementById('navHome').classList.add('active');
+            if (tabId === 'configsTab') {
+                document.getElementById('configsTab').style.display = 'grid';
+                document.getElementById('navConfigs').classList.add('active');
+} else if (tabId === 'buyTab') {
+document.getElementById('buyTab').style.display = 'block';
+document.getElementById('navBuy').classList.add('active');
+            } else if (tabId === 'configsTab') {
+                document.getElementById('configsTab').style.display = 'grid';
+                document.getElementById('navConfigs').classList.add('active');
+} else if (tabId === 'internalTab') {
+document.getElementById('internalTab').style.display = 'block';
+document.getElementById('navInternal').classList.add('active');
+}
+}
+
+         async function checkUserData() {
+        async function checkUserData() {
+try {
+const res = await fetch('/api/user');
+const data = await res.json();
+const authArea = document.getElementById('authArea');
+                const heroBanner = document.querySelector('.hero-banner');
+                const mainContent = document.getElementById('mainContent');
+
+                if (!data.loggedIn || !data.hasAccess) {
+                if (!data.loggedIn) {
+authArea.innerHTML = `<a href="/auth/discord" class="btn btn-discord">Login with Discord</a>`;
+                    if (data.loggedIn && !data.hasAccess) {
+                        alert("Access denied: Your Discord account does not have an active subscription/payment verified by the bot.");
+                    }
+return;
+}
+
+                // Unlock Navigation Tabs once verified & paid
+                document.getElementById('navConfigs').style.display = 'inline';
+                document.getElementById('navInternal').style.display = 'inline';
+
+                // Update Header Auth Area
+authArea.innerHTML = `
+                   <div class="user-profile">
+                       <img src="${data.user.avatar}" alt="Avatar" class="user-avatar">
+                       <span style="font-family: var(--font-mono); font-weight: 700; font-size: 0.85rem;">${data.user.username}</span>
+                       <a href="/logout" class="btn btn-outline" style="padding: 0.4rem 0.8rem;">Logout</a>
+                   </div>
+               `;
+
+                if (heroBanner) {
+                    heroBanner.innerHTML = `
+                        <h1>Welcome back, <span>${data.user.username}</span></h1>
+                        <p>Your session is active and verified. Head over to the <b>Configs</b> tab to tweak your live script settings or manage your internal source code.</p>
+                        <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+                            <button onclick="switchTab('configsTab')" class="btn btn-discord" style="padding: 0.8rem 2rem; font-size: 0.9rem;">Open Configs Panel</button>
+                        </div>
+                    `;
+                }
+                
+                loadUserScriptSettings(data.user.id);
+fetchCloudConfigs();
+} catch (err) {
+console.error('Session load error', err);
+}
+}
+
+        function renderSettingsTable(settingsObj, parentKey = '', container = document.getElementById('settings-container')) {
+            if (parentKey === '') container.innerHTML = '';
+
+            for (const [key, value] of Object.entries(settingsObj)) {
+                const fullKey = parentKey ? `${parentKey}.${key}` : key;
+
+                if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+                    const sectionDiv = document.createElement('div');
+                    sectionDiv.className = 'settings-section';
+                    sectionDiv.innerHTML = `<h3>${key}</h3>`;
+                    
+                    const subContainer = document.createElement('div');
+                    subContainer.className = 'settings-subgroup';
+                    
+                    renderSettingsTable(value, fullKey, subContainer);
+                    sectionDiv.appendChild(subContainer);
+                    container.appendChild(sectionDiv);
+                } else {
+                    const row = document.createElement('div');
+                    row.className = 'setting-row';
+
+                    let inputHtml = '';
+                    if (typeof value === 'boolean') {
+                        inputHtml = `<select data-key="${fullKey}"><option value="true" ${value ? 'selected' : ''}>True</option><option value="false" ${!value ? 'selected' : ''}>False</option></select>`;
+                    } else if (typeof value === 'number') {
+                        inputHtml = `<input type="number" data-key="${fullKey}" value="${value}">`;
+                    } else {
+                        inputHtml = `<input type="text" data-key="${fullKey}" value="${value}">`;
+                    }
+
+                    row.innerHTML = `<label>${key}</label>${inputHtml}`;
+                    container.appendChild(row);
+                }
+            }
+        }
+
+        async function loadUserScriptSettings(userId) {
+            try {
+                const res = await fetch(`/api/get-script-settings/${userId}`);
+                const data = await res.json();
+
+                let configToRender = {};
+                if (data.success && data.settings && Object.keys(data.settings).length > 0) {
+                    configToRender = data.settings;
+                } else {
+                    configToRender = {
+                        UI: { "Watermark Text Size": 32 },
+                        Keybinds: { "Silent Aim": "C", "Cam Lock": "Q" },
+                        Combat: {
+                            "Silent Aim": { Enabled: true, Active: false, Type: "Legit", "Max Distance": 50000, FOV: { Size: 1000, Visible: false } },
+                            Orbit: { Enabled: true, Type: "Destroy Cheaters" }
+                        },
+                        Movement: { Speed: { Enabled: true, Multiplier: 300 } }
+                    };
+                }
+                renderSettingsTable(configToRender);
+            } catch (err) {
+                console.error("Failed to load settings schema", err);
+            }
+        }
+
+        function gatherSettingsFromDOM() {
+            const container = document.getElementById('settings-container');
+            const inputs = container.querySelectorAll('input, select');
+            const settings = {};
+
+            inputs.forEach(input => {
+                const keys = input.getAttribute('data-key').split('.');
+                let current = settings;
+
+                for (let i = 0; i < keys.length - 1; i++) {
+                    current[keys[i]] = current[keys[i]] || {};
+                    current = current[keys[i]];
+                }
+
+                const leafKey = keys[keys.length - 1];
+                const val = input.value;
+
+                if (val === 'true') current[leafKey] = true;
+                else if (val === 'false') current[leafKey] = false;
+                else if (!isNaN(val) && val.trim() !== '') current[leafKey] = Number(val);
+                else current[leafKey] = val;
+            });
+
+            return settings;
+        }
+
+        document.getElementById('saveSettingsBtn').addEventListener('click', async () => {
+            const updatedSettings = gatherSettingsFromDOM();
+            const isPublic = document.getElementById('isPublicToggle').checked;
+
+            try {
+                const res = await fetch('/api/save-settings', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ settings: updatedSettings, isPublic })
+                });
+                const result = await res.json();
+                
+                const statusDiv = document.getElementById('saveStatus');
+                if (result.success) {
+                    statusDiv.textContent = "Configuration table saved & synced live in-game!";
+                    fetchCloudConfigs();
+                } else {
+                    statusDiv.textContent = "Save failed. Authentication required.";
+                }
+            } catch (err) {
+                document.getElementById('saveStatus').textContent = "Network synchronization error.";
+            }
+        });
+
+async function fetchCloudConfigs() {
+try {
+const res = await fetch('/api/cloud-configs');
+@@ -407,7 +297,9 @@ <h1>Welcome back, <span>${data.user.username}</span></h1>
+html += `
+                       <div class="config-card">
+                           <h4>${cfg.username}</h4>
+                            <p>Updated: ${new Date(cfg.updatedAt).toLocaleTimeString()}</p>
+                            <p>FOV Size: ${cfg.settings?.General?.Combat?.['Silent Aim']?.['FOV']?.['Size'] || 'N/A'}</p>
+                            <p>Orbit Mode: ${cfg.settings?.General?.Combat?.['Orbit']?.['Type'] || 'N/A'}</p>
+                            <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted);">Updated: ${new Date(cfg.updatedAt).toLocaleTimeString()}</span>
+                       </div>
+                   `;
+});
+@@ -418,6 +310,59 @@ <h4>${cfg.username}</h4>
+}
+}
+
+        const settingsForm = document.getElementById('settingsForm');
+        if (settingsForm) {
+            settingsForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const silentEnabled = document.getElementById('silentEnabled').value === 'true';
+                const silentType = document.getElementById('silentType').value;
+                const fovSize = Number(document.getElementById('fovSize').value);
+                const hitLocationMode = document.getElementById('hitLocationMode').value;
+                
+                const speedMultiplier = Number(document.getElementById('speedMultiplier').value);
+                const orbitType = document.getElementById('orbitType').value;
+                const selectedSkybox = document.getElementById('skyboxSelect').value;
+                const isPublic = document.getElementById('isPublicToggle').checked;
+
+                const structuredSettings = {
+                    General: {
+                        Combat: {
+                            "Silent Aim": {
+                                Enabled: silentEnabled,
+                                Type: silentType,
+                                FOV: { Size: fovSize },
+                                "Hit Location": { Mode: hitLocationMode }
+                            },
+                            Orbit: { Type: orbitType },
+                            ESP: { Enabled: true }
+                        },
+                        Movement: { Speed: { Multiplier: speedMultiplier } },
+                        Environment: { "Selected Skybox": selectedSkybox }
+                    }
+                };
+
+                try {
+                    const res = await fetch('/api/save-settings', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ settings: structuredSettings, isPublic })
+                    });
+                    const result = await res.json();
+                    
+                    const statusDiv = document.getElementById('saveStatus');
+                    if (result.success) {
+                        statusDiv.textContent = "Configuration table saved & synced successfully!";
+                        fetchCloudConfigs();
+                    } else {
+                        statusDiv.textContent = "Save failed. Make sure you are logged in.";
+                    }
+                } catch (err) {
+                    document.getElementById('saveStatus').textContent = "Network synchronization error.";
+                }
+            });
+        }
+
+const scriptSourceForm = document.getElementById('scriptSourceForm');
+if (scriptSourceForm) {
+scriptSourceForm.addEventListener('submit', async (e) => {
+@@ -436,7 +381,7 @@ <h4>${cfg.username}</h4>
+if (result.success) {
+statusDiv.textContent = "Script source securely stored on server!";
+} else {
+                        statusDiv.textContent = "Failed to save script source.";
+                        statusDiv.textContent = "Failed to save script source. Ensure you are logged in.";
+}
+} catch (err) {
+document.getElementById('scriptSaveStatus').textContent = "Network error saving script source.";
